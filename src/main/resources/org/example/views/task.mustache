@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskPlanner - Task Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+        .task-details {
+            background: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .task-details h2 {
+            color: #333;
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 10px;
+        }
+        .task-details p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .task-details label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        .not-found{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{#isSuccess}}
+    <header>
+        <div class="container">
+            <h1>Task Details</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="task-details">
+            <h2><label>Status:</label>{{task.status}}</h2>
+            <h3><label>Heading:</label>{{task.heading}}</h3>
+            <p><label>Task ID:</label> {{task.id}}</p>
+            <p><label>Start Date:</label> {{task.startDate}}</p>
+            <p><label>Target Date:</label> {{task.targetDate}}</p>
+            <p><label>Description:</label> {{task.description}}</p>
+        </div>
+    </div>
+    {{/isSuccess}}
+
+
+    {{^isSuccess}}
+
+    <div class="not-found">
+        <h1>404 - Page Not Found</h1>
+        <p>Sorry, the task you're looking for doesn't exist.</p>
+        <a href="/home" class="btn btn-primary mt-3">Return to Home</a>
+    </div>
+
+    {{/isSuccess}}
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TaskPlanner - Update Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input[type="date"], input[type="text"], textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .btn-cancel {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            text-decoration: none;
+            align-items: center;
+        }
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
+        .not-found{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{#isSuccess}}
+    <div class="container">
+        <h1>Update Task</h1>
+        <form action="/home/task/update2/{{task.id}}" method="post">
+            <input type="hidden" name="_method" value="PUT">
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" name="startDate" value="{{task.startDate}}" required>
+
+            <label for="targetDate">Target Date</label>
+            <input type="date" id="targetDate" name="targetDate" value="{{task.targetDate}}" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" required>{{task.description}}</textarea>
+
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="TODO" {{#isTodo}}selected{{/isTodo}}>Todo</option>
+                <option value="WIP" {{#isWIP}}selected{{/isWIP}}>Work in Progress (WIP)</option>
+                <option value="DONE" {{#isDone}}selected{{/isDone}}>Done</option>
+            </select>
+
+            <label for="heading">Heading</label>
+            <input type="text" id="heading" name="heading" value="{{task.heading}}" required>
+
+            <button type="submit">Update Task</button>
+            <a href="/home" class="btn btn-cancel">Cancel</a>
+        </form>
+    </div>
+    {{/isSuccess}}
+
+    {{^isSuccess}}
+    <div class="not-found">
+        <h1>404 - Page Not Found</h1>
+        <p>Sorry, the task you're looking for doesn't exist.</p>
+        <a href="/home" class="btn btn-cancel">Return to Home</a>
+    </div>
+    {{/isSuccess}}
+</body>
+</html>

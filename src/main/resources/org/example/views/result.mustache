@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPlanner - {{title}}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 60px; /* Adjust for fixed navbar height */
+        }
+        .navbar {
+            background-color: #007bff; /* Navbar background color */
+        }
+        .navbar-brand {
+            color: white;
+            font-size: 2rem; /* Adjust as needed */
+            font-weight: bold;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+        }
+        .container {
+            max-width: 800px; /* Limit content width */
+            margin: 0 auto; /* Center content horizontally */
+            background-color: #007bff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: Add shadow for depth */
+        }
+        h1, p {
+            text-align: center;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+
+
+    <!-- Success Message -->
+    <div class="container mt-5">
+        <h1>{{title}}</h1>
+        <p class="lead">{{message}}</p>
+        <a href="/home" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

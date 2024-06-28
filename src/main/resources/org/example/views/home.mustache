@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskPlanner - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        h1 {
+            color: #FFF;
+            text-align: center;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            display: inline-block;
+            padding: 5px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .btn-delete {
+            background-color: #e74c3c;
+        }
+        .btn-update {
+            background-color: #3498db;
+        }
+        .btn-view {
+            background-color: #2ecc71;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-container button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        .form-container button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #218838;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input[type="date"], input[type="text"], textarea {
+            padding: 10px;
+            margin-top: 3px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Task List</h1>
+        </div>
+    </header>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Serial No</th>
+                    <th>Task Status</th>
+                    <th>Task Heading</th>
+                    <th>Start Date</th>
+                    <th>Target Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#tasks}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>{{status}}</td>
+                        <td>{{heading}}</td>
+                        <td>{{startDate}}</td>
+                        <td>{{targetDate}}</td>
+                        <td>
+                            <a href="/home/task/{{id}}" class="btn btn-view">View</a>
+                            <a href="/home/task/delete/{{id}}" class="btn btn-delete">Delete</a>
+                            <a href="/home/task/update/{{id}}" class="btn btn-update">Update</a>
+                        </td>
+                    </tr>
+                {{/tasks}}
+            </tbody>
+        </table>
+    </div>
+    <div class="button-container">
+        <button class="button" onclick="openModal()">Add Task</button>
+    </div>
+
+   <!-- The Modal -->
+   <div id="myModal" class="modal">
+       <div class="modal-content">
+           <span class="close" onclick="closeModal()">&times;</span>
+           <div class="form-container">
+               <h2>Create New Task</h2>
+               <hr>
+               <form action="/home/task" method="post">
+                   <label for="startDate">Start Date</label>
+                   <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY-MM-DD)" required>
+
+                   <label for="targetDate">Target Date</label>
+                   <input type="date" id="targetDate" name="targetDate" placeholder="Target Date (YYYY-MM-DD)" required>
+
+                   <label for="description">Description</label>
+                   <textarea id="description" name="description" rows="4" placeholder="Description" required></textarea>
+
+                   <label for="heading">Heading</label>
+                   <input type="text" id="heading" name="heading"  placeholder="Heading" required>
+                   <button type="submit">Create Task</button>
+               </form>
+           </div>
+       </div>
+   </div>
+   <script>
+       function openModal() {
+           document.getElementById("myModal").style.display = "block";
+       }
+
+       function closeModal() {
+           document.getElementById("myModal").style.display = "none";
+       }
+
+       // Close the modal when clicking outside of it
+       window.onclick = function(event) {
+           if (event.target == document.getElementById("myModal")) {
+               closeModal();
+           }
+       }
+    </script>
+</body>
+</html>
